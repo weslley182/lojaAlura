@@ -6,6 +6,14 @@
 
 	<?php
 		verificarUsuario();
+
+		if (strcasecmp($_POST["tipoProduto"], "Livro") == 0) {
+			$oProd = new Livro();
+			$oProd->setIsbn($_POST['isbn']);
+		} else {
+			$oProd = new Produto();
+		}
+
 		$oProd = new Produto();
 		$oCat = new Categoria();
 		$oCat->setId($_POST["categoria_id"]);

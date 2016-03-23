@@ -41,6 +41,9 @@ foreach($produtos as $produto):
 			</select>
 		</td> -->
 		<td><?= $produto->getUsado(); ?></td>
+
+
+
 		<td><a class="btn btn-primary" href="produto-altera-formulario.php?id=<?= $produto->getId(); ?>">Alterar</a></td>
 		<td>
 			<form action="remove-produto.php" method="post">

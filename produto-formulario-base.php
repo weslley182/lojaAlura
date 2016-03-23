@@ -31,3 +31,16 @@
 		</select>
 	</td>
 </tr>
+<tr>
+	<td>Tipo de produto</td>
+	<td>
+		<select name="tipoProduto">
+			<option value="Geral">Geral</option>
+			<option value="Livro">Livro</option>
+		</select>
+	</td>
+<tr>
+<tr>
+	<td>ISBN (quando for um livro)</td>
+	<td><input name="isbn"/></td>
+<tr>

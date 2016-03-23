@@ -28,6 +28,27 @@ class Produto{
 	 * @var
 	 */
 	private $usado;
+
+	/**
+	 * @var
+     */
+	private $tipoProduto;
+
+	/**
+	 * @return mixed
+	 */
+	public function getTipoProduto()
+	{
+		return $this->tipoProduto;
+	}
+
+	/**
+	 * @param mixed $tipoProduto
+	 */
+	public function setTipoProduto($tipoProduto)
+	{
+		$this->tipoProduto = $tipoProduto;
+	}
 	/**
 	 * @return mixed
 	 */
@@ -160,6 +181,11 @@ class Produto{
 		return $this->getPreco();
 
 	}
+
+	public function temIsbn(){
+		return $this->tipoProduto == "livro";
+	}
+
 
 }
 

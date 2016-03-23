@@ -13,10 +13,17 @@ class ProdutoDAO{
 
     function inserirProduto($poProd)
     {
+        if ($poProd->temIsbn()) {
+            $sIbn = $poProd->getIsbn();
+        } else {
+            $sIsbn = "";
+        }
+
         $sNome = mysqli_real_escape_string($this->conexao, $poProd->getNome());
         $sDescricao = mysqli_real_escape_string($this->conexao, $poProd->getDescricao());
-        $sSql = "insert into produtos(nome, preco, descricao, categoria_id, usado) " .
-            "values('{$sNome}', {$poProd->getPreco()}, '{$sDescricao}', {$poProd->getCategoria()->getId()}, {$poProd->getUsado()})";
+        $sSql = "insert into produtos(nome, preco, descricao, categoria_id, usado, isbn) " .
+            "values('{$sNome}', {$poProd->getPreco()}, '{$sDescricao}', {$poProd->getCategoria()->getId()}, ".
+            "{$poProd->getUsado()}, '{$sIsbn}' )";
 
         return mysqli_query($this->conexao, $sSql);
     }
@@ -35,7 +42,13 @@ class ProdutoDAO{
             $oCat->setId($produto['catId']);
             $oCat->setNome($produto['catNome']);
 
-            $oProd = new Produto();
+            if (trim($produto['isbn'])!=="") {
+                $oProd = new Livro();
+                $oProd->setIsbn($produto['isbn']);
+            } else {
+                $oProd = new Produto();
+            }
+
             $oProd->setId($produto['id']);
             $oProd->setNome($produto['nome']);
             $oProd->setDescricao($produto['descricao']);
