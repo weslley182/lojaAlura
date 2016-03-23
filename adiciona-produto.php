@@ -1,34 +1,34 @@
 <?php require_once("cabecalho.php");
-	  require_once("banco-produto.php"); 
+	  require_once("conecta.php");
 	  require_once("logica-usuario.php"); 
-	  require_once("class/Produto.php");
-      require_once("class/Categoria.php");
+
 ?>
 
 	<?php
 		verificarUsuario();
 		$oProd = new Produto();
 		$oCat = new Categoria();
-		$oCat->id = $_POST["categoria_id"];
-		$oProd->nome = $_POST["nome"];
-		$oProd->preco = $_POST["preco"];
-		$oProd->descricao = $_POST["descricao"];
-		$oProd->categoria = $oCat;
+		$oCat->setId($_POST["categoria_id"]);
+		$oProd->setNome($_POST["nome"]);
+		$oProd->setPreco($_POST["preco"]);
+		$oProd->setDescricao($_POST["descricao"]);
+		$oProd->setCategoria($oCat);
 		
 		if(array_key_exists('usado', $_POST)){
 			$bUsado = "true";
 		}else{
 			$bUsado = "false";
 		}
-		$oProd->usado = $bUsado;
+		$oProd->setUsado($bUsado);
+		$oProdDao = new ProdutoDAO($conexao);
 
 
-		$conectou = inserirProduto($conexao, $oProd);
+		$conectou = $oProdDao->inserirProduto($oProd);
 
 	if ($conectou){
 	?>	
 		<p class="text-success">
-			Produto <?= $oProd->nome; ?>, <?= $oProd->preco; ?> adicionado com sucesso!
+			Produto <?= $oProd->getNome(); ?>, <?= $oProd->getPreco(); ?> adicionado com sucesso!
 		</p>
 	<?php
 	} else{
@@ -36,7 +36,7 @@
 
 	?>
 		<p class="text-danger">
-			Produto <?= $oProd->nome; ?> não foi adicionado: <?= $msg ?>.
+			Produto <?= $oProd->getNome(); ?> não foi adicionado: <?= $msg ?>.
 		</p>
 	<?php
 	}

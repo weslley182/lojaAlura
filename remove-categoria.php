@@ -1,9 +1,12 @@
-<?php require_once("banco-categoria.php"); ?>
+<?php require_once("conecta.php"); ?>
 
 <?php
 
 $id = $_POST['id'];
-removerCategoria($conexao, $id);
+
+$oCatDao = new CategoriaDAO($conexao);
+
+$oCatDao->removerCategoria($id);
 
 header("location: categoria-lista.php?bRemovido=true");
 ?>

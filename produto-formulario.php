@@ -1,16 +1,14 @@
-<?php require_once("cabecalho.php"); 
-	  require_once("banco-categoria.php"); 
+<?php require_once("cabecalho.php");
+	  require_once("conecta.php");
 	  require_once("logica-usuario.php");
-	  require_once("class/categoria.php");
-	  require_once("class/Produto.php");
 
 verificarUsuario();
-$produtos = new Produto();
-#$produtos->categoria->id = 1;
+$produto = new Produto();
 $usado = "";
 
 $categorias = new Categoria();
-$categorias =  listarCategorias($conexao);
+$oCatDao = new CategoriaDAO($conexao);
+$categorias =  $oCatDao->listarCategorias();
 
 ?>
 

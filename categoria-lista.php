@@ -1,14 +1,13 @@
 <?php require_once("cabecalho.php");
- 	  require_once("banco-categoria.php"); 
+ 	  require_once("conecta.php");
  	  require_once("logica-usuario.php");
-	  require_once("class/Categoria.php");
 ?>
 
 <?php
 
 verificarUsuario();
-
-$oCategorias = listarCategorias($conexao);
+$oCatDao = new CategoriaDAO($conexao);
+$oCategorias = $oCatDao->listarCategorias($conexao);
 ?>
 <form action="categoria-formulario.php" method="post">
 	<button  class="btn btn-primary">Adiciona Categoria</button>
@@ -19,10 +18,10 @@ $oCategorias = listarCategorias($conexao);
 foreach($oCategorias as $sCategoria):
 ?>
 	<tr>
-		<td><?= $sCategoria->nome ?></td>
+		<td><?= $sCategoria->getNome(); ?></td>
 		<td>
 			<form action="remove-categoria.php" method="post">
-				<input type="hidden" name="id" value="<?= $sCategoria->id ?>" />
+				<input type="hidden" name="id" value="<?= $sCategoria->getId(); ?>" />
 				<button class="btn btn-danger">Remover</button>				
 			</form>
 		</td>

@@ -1,11 +1,13 @@
-<?php require_once("cabecalho.php");	  
-	  require_once("banco-categoria.php"); ?>
+<?php require_once("cabecalho.php");
+	  require_once("conecta.php");
+
+?>
 
 	<?php
 
 		$nome = $_POST["nome"];
-
-		$conectou = inserirCategoria($conexao, $nome);
+		$oCatDao = new CategoriaDAO($conexao);
+		$conectou = $oCatDao->inserirCategoria($nome);
 
 	if ($conectou){
 	?>	

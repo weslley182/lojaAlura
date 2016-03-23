@@ -1,11 +1,13 @@
-<?php require_once("banco-produto.php"); 
+<?php require_once("conecta.php");
  	  require_once("logica-usuario.php"); ?>
 
 <?php
 verificarUsuario();
 
 $id = $_POST['id'];
-removerProduto($conexao, $id);
+$oProdDao = new ProdutoDAO($conexao);
+$oProdDao->removerProduto($id);
+
 $_SESSION["success"] = "Produto removido com sucesso.";
 header("location: produto-lista.php");
 ?>

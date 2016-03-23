@@ -1,33 +1,35 @@
 <?php require_once("cabecalho.php");
-	  require_once("banco-produto.php");  
-	  require_once("class/Produto.php")
+	  require_once("conecta.php");
+
 ?>
 
 	<?php
 
 		$oCat = new Categoria();
-		$oCat->id = $_POST["categoria_id"];
+		$oCat->setId($_POST["categoria_id"]);
 
 		$oProd = new Produto();
-		$oProd->id = $_POST["id"];
-		$oProd->nome = $_POST["nome"];
-		$oProd->preco = $_POST["preco"];
-		$oProd->descricao = $_POST["descricao"];
-		$oProd->categoria = $oCat;
+		$oProd->setId($_POST["id"]);
+		$oProd->setNome($_POST["nome"]);
+		$oProd->setPreco($_POST["preco"]);
+		$oProd->setDescricao($_POST["descricao"]);
+				$oProd->setCategoria($oCat);
 		
 		if(array_key_exists('usado', $_POST)){
 			$bUsado = "true";
 		}else{
 			$bUsado = "false";
 		}
-		$oProd->usado = $bUsado;
+		$oProd->setUsado($bUsado);
 
-		$conectou = alterarProduto($conexao, $oProd);
+		$oProdDao = new ProdutoDAO($conexao);
+
+		$conectou = $oProdDao->alterarProduto($oProd);
 
 	if ($conectou){
 	?>	
 		<p class="text-success">
-			Produto <?= $nome; ?>, <?= $preco; ?> alterado com sucesso!
+			Produto <?= $oProd->getNome(); ?>, <?= $oProd->getPreco(); ?> alterado com sucesso!
 		</p>
 	<?php
 	} else{
@@ -35,7 +37,7 @@
 
 	?>
 		<p class="text-danger">
-			Produto <?= $nome; ?> não foi alterado: <?= $msg ?>.
+			Produto <?= $oProd->getNome(); ?> não foi alterado: <?= $msg ?>.
 		</p>
 	<?php
 	}
