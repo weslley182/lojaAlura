@@ -186,6 +186,10 @@ class Produto{
 		return $this->tipoProduto == "livro";
 	}
 
+	public function calcularImposto(){
+		return $this->getPreco() * 0.20;
+	}
+
 
 }
 

@@ -15,7 +15,7 @@ $categorias = $oCatDao->listarCategorias();
 	<tr>
 		<th>Nome</th>
 		<th>Preço</th>
-		<th>Desconto</th>
+		<th>Imposto</th>
 		<th>Descrição</th>
 		<th>Categoria</th>
 		<th>Usado?</th>
@@ -26,8 +26,8 @@ foreach($produtos as $produto):
 ?>
 	<tr>
 		<td><?= $produto->getNome(); ?></td>
-		<td><?= $produto->getPreco() ?></td>
-		<td><?= $produto->valorComDesconto(); ?></td>
+		<td><?= $produto->getPreco(); ?></td>
+		<td><?= $produto->calcularImposto(); ?></td>
 		<td><?= substr($produto->getDescricao() ,0,40); ?></td>
 		<td><?= $produto->getCategoria()->getNome(); ?></td>
 		<!--<td>
